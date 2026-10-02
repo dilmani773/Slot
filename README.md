@@ -27,11 +27,18 @@ You can run Slot with no AI key at all. Library picks and normal PDFs still work
 ### Add a batch to the library
 
 ```bash
-python add_timetable.py "Timetable E21-CS2-V5.pdf" "E21 CS2 (V5)"
+python add_timetable.py "Timetable E21-CS2-V5.pdf" "E21 CS2 (V5)" \
+    --university "University of Peradeniya" --faculty Engineering
 ```
 
-This saves `timetables/e21-cs2-v5.json`. Open it, check it, then commit and push. The new batch appears in the list.
+For a university in another country, add its timezone, e.g. `--timezone Australia/Melbourne`. The default is `Asia/Colombo`.
+
+This saves a JSON file in `timetables/`. Open it, check it, then commit and push. Students pick the university, then the batch.
 When a new version comes out, add it with a new name, like "E21 CS2 (V6)", and delete the old file.
+
+### Timezones
+
+Classes are saved in the university's timezone. Library timetables carry their own timezone. For uploads, Slot uses the timezone of the student's device, and they can change it on the last step.
 
 ## Your users never need an API key
 

@@ -8,6 +8,7 @@ import streamlit as st
 
 from grid import INKS, week_grid
 import time as _time
+from zoneinfo import available_timezones
 
 import ai_guard
 import gcal
@@ -21,19 +22,32 @@ st.markdown(f"<style>{Path(__file__).with_name('style.css').read_text()}</style>
 
 COLUMNS = ["code", "subject", "type", "day", "start", "end", "venue", "lecturer"]
 LIBRARY_DIR = Path(__file__).with_name("timetables")
+ALL_TZ = sorted(t for t in available_timezones() if "/" in t and not t.startswith(("Etc/", "SystemV/", "posix/", "right/")))
 
 
 @st.cache_data
 def load_library() -> dict:
-    """name -> classes, from timetables/*.json. Newest file names last."""
+    """university -> {batch label -> entry}, from timetables/*.json."""
     lib = {}
     for f in sorted(LIBRARY_DIR.glob("*.json")):
         try:
             d = json.loads(f.read_text())
-            lib[d["name"]] = d["classes"]
+            uni = d.get("university") or "Other"
+            label = f'{d["faculty"]}: {d["name"]}' if d.get("faculty") else d["name"]
+            lib.setdefault(uni, {})[label] = d
         except Exception:
             pass
-    return lib
+    return dict(sorted(lib.items()))
+
+
+def browser_timezone() -> str:
+    try:
+        tz = st.context.timezone
+        if tz and tz in ALL_TZ:
+            return tz
+    except Exception:
+        pass
+    return "Asia/Colombo"
 
 ss = st.session_state
 ss.setdefault("step", 1)
@@ -77,7 +91,7 @@ def ai_read(kind, file, reader, status, fresh=False):
 GOOGLE_ID = secret("GOOGLE_CLIENT_ID")
 GOOGLE_SECRET = secret("GOOGLE_CLIENT_SECRET")
 REDIRECT = secret("GOOGLE_REDIRECT_URI", "http://localhost:8501")
-SNAP_KEYS = ["step", "lectures", "all_lectures", "picked", "sem_start", "sem_end", "reminder",
+SNAP_KEYS = ["step", "tz", "lectures", "all_lectures", "picked", "sem_start", "sem_end", "reminder",
              "breaks_base", "exams_base", "ai_reads"]
 
 
@@ -145,7 +159,8 @@ st.markdown(
 
 
 # ---------- Step 1: Upload ----------
-def start_with(classes):
+def start_with(classes, tz=None):
+    ss.tz = tz or ss.get("tz") or browser_timezone()
     ss.all_lectures = pd.DataFrame(classes).reindex(columns=COLUMNS).fillna("")
     ss.picked = None
     ss.step = 2
@@ -160,9 +175,14 @@ if ss.step == 1:
         st.subheader("Find your timetable")
         if library:
             st.markdown('<p class="note">If your batch is on the list, you don\'t need to upload anything.</p>', unsafe_allow_html=True)
-            choice = st.selectbox("Batch", list(library), index=None, placeholder="Choose your batch", label_visibility="collapsed")
+            uni = st.selectbox("University", list(library), index=0 if len(library) == 1 else None,
+                               placeholder="Choose your university")
+            batches = library.get(uni, {})
+            choice = st.selectbox("Batch", list(batches), index=None, placeholder="Choose your batch",
+                                  disabled=not uni)
             if st.button("Use this timetable", type="primary", disabled=choice is None, width="stretch"):
-                start_with(library[choice])
+                entry = batches[choice]
+                start_with(entry["classes"], entry.get("timezone"))
         else:
             st.markdown('<p class="note">No timetables have been added yet. Upload yours on the right.</p>', unsafe_allow_html=True)
 
@@ -307,11 +327,15 @@ else:
     ss.setdefault("sem_start", today)
     ss.setdefault("sem_end", today + timedelta(weeks=15))
     ss.setdefault("reminder", 10)
-    c1, c2, c3 = st.columns(3)
+    ss.setdefault("tz", browser_timezone())
+    c1, c2, c3, c4 = st.columns([1, 1, 1, 1.2])
     sem_start = c1.date_input("First day of lectures", key="sem_start")
     sem_end = c2.date_input("Last day of lectures", key="sem_end")
     reminder = c3.selectbox("Class reminder", [None, 5, 10, 15, 30], key="reminder",
                             format_func=lambda m: "No reminder" if m is None else f"{m} minutes before")
+    tz_name = c4.selectbox("University timezone", ALL_TZ, key="tz",
+                           format_func=lambda t: t.replace("_", " "),
+                           help="The timezone where your classes happen. Picked from your device, so check it if you're studying abroad.")
 
     st.markdown('<p class="note">Weeks with no lectures, like a mid-semester break or study leave. Leave empty if none.</p>', unsafe_allow_html=True)
     breaks_df = st.data_editor(
@@ -370,7 +394,7 @@ else:
     if exam_problems:
         st.stop()
 
-    events = class_events(rows, sem_start, sem_end, breaks, reminder) + exam_events(exams)
+    events = class_events(rows, sem_start, sem_end, breaks, reminder, tz_name) + exam_events(exams, tz_name)
     weeks = (sem_end - sem_start).days // 7 + 1
     st.markdown(
         f"**{len(rows)} classes a week** for about {weeks} weeks"
@@ -395,7 +419,7 @@ else:
             try:
                 with st.spinner("Checking your Lectures calendar..."):
                     if not ss.get("cal_id"):
-                        ss.cal_id = gcal.get_or_create_calendar(ss.gtoken)
+                        ss.cal_id = gcal.get_or_create_calendar(ss.gtoken, tz_name)
                     existing = gcal.existing_events(ss.gtoken, ss.cal_id)
                 keep = set() if exams else {"exam"}  # no exams entered: leave old exams alone
                 p = gcal.plan(events, existing, keep_kinds=keep)

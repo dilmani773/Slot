@@ -1,0 +1,329 @@
+{
+ "university": "University of Peradeniya",
+ "faculty": "Engineering",
+ "name": "E21 CS2 (V5)",
+ "timezone": "Asia/Colombo",
+ "source": "Timetable E21-CS2-V5.pdf",
+ "classes": [
+  {
+   "code": "CO422",
+   "venue": "8",
+   "day": "Friday",
+   "start": "08:00",
+   "end": "09:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO423",
+   "venue": "7",
+   "day": "Friday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO424",
+   "venue": "7",
+   "day": "Friday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EE356",
+   "venue": "3",
+   "day": "Friday",
+   "start": "10:10",
+   "end": "12:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF531",
+   "venue": "9",
+   "day": "Friday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF531",
+   "venue": "L",
+   "day": "Friday",
+   "start": "17:00",
+   "end": "17:55",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO422",
+   "venue": "7",
+   "day": "Monday",
+   "start": "10:10",
+   "end": "12:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO423",
+   "venue": "8",
+   "day": "Monday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO424",
+   "venue": "8",
+   "day": "Monday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EE356",
+   "venue": "2",
+   "day": "Monday",
+   "start": "08:00",
+   "end": "09:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "MA509",
+   "venue": "2",
+   "day": "Monday",
+   "start": "10:10",
+   "end": "12:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "MA509",
+   "venue": "2",
+   "day": "Monday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "MA509",
+   "venue": "2",
+   "day": "Monday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Thursday",
+   "start": "08:00",
+   "end": "09:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Thursday",
+   "start": "10:10",
+   "end": "12:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Thursday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Thursday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF531",
+   "venue": "L",
+   "day": "Thursday",
+   "start": "17:00",
+   "end": "17:55",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Tuesday",
+   "start": "08:00",
+   "end": "09:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Tuesday",
+   "start": "10:10",
+   "end": "12:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Tuesday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Tuesday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF511",
+   "venue": "",
+   "day": "Tuesday",
+   "start": "13:55",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF511",
+   "venue": "",
+   "day": "Tuesday",
+   "start": "15:10",
+   "end": "16:05",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF531",
+   "venue": "L",
+   "day": "Tuesday",
+   "start": "10:10",
+   "end": "11:05",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EF531",
+   "venue": "L",
+   "day": "Tuesday",
+   "start": "17:00",
+   "end": "17:55",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "14",
+   "day": "Wednesday",
+   "start": "08:00",
+   "end": "09:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Wednesday",
+   "start": "10:10",
+   "end": "11:05",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Wednesday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "CO421",
+   "venue": "P",
+   "day": "Wednesday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EE356",
+   "venue": "P",
+   "day": "Wednesday",
+   "start": "13:00",
+   "end": "14:50",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  },
+  {
+   "code": "EE356",
+   "venue": "P",
+   "day": "Wednesday",
+   "start": "15:10",
+   "end": "17:00",
+   "type": "Lecture",
+   "subject": "",
+   "lecturer": ""
+  }
+ ]
+}

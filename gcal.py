@@ -89,12 +89,12 @@ def find_calendar(token) -> str | None:
             return None
 
 
-def get_or_create_calendar(token) -> str:
+def get_or_create_calendar(token, tz_name: str = TZ_NAME) -> str:
     cid = find_calendar(token)
     if cid:
         return cid
     return _ok(_req(token, "POST", "/calendars", json={
-        "summary": CAL_NAME, "description": CAL_TAG, "timeZone": TZ_NAME,
+        "summary": CAL_NAME, "description": CAL_TAG, "timeZone": tz_name,
     }))["id"]
 
 
@@ -115,7 +115,7 @@ def existing_events(token, cal_id) -> dict:
 
 # ---------- Sync ----------
 def _body(ev):
-    tz = TZ_NAME
+    tz = ev.get("tz", TZ_NAME)
     body = {
         "id": ev["id"],
         "summary": ev["summary"],

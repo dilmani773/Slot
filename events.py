@@ -69,6 +69,7 @@ def class_events(lectures, sem_start: date, sem_end: date, breaks=None, reminder
             "exdates": exdates,
             "reminders": [reminder_min] if reminder_min else [],
             "label": f"{lec['day'][:3]} {normalize_time(lec['start'])}",
+            "tz": tz_name,
         })
     return events
 
@@ -93,6 +94,7 @@ def exam_events(exams, tz_name=TZ_NAME):
             "exdates": [],
             "reminders": [24 * 60, 60],
             "label": d.strftime("%a %d %b"),
+            "tz": tz_name,
         })
     return events
 
@@ -118,7 +120,8 @@ def validate_exams(exams) -> list[str]:
     return problems
 
 
-def to_ics(events, tz_name=TZ_NAME) -> bytes:
+def to_ics(events, tz_name=None) -> bytes:
+    tz_name = tz_name or (events[0]["tz"] if events else TZ_NAME)
     from icalendar import Alarm, Calendar, Event
 
     cal = Calendar()
